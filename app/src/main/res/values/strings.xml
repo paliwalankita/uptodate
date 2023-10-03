@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UPTODATE</string>
+    <string name="current_news">Current News</string>
+    <string name="saved_news">Saved Articles</string>
+    <string name="search_news">Search Article</string>
+
+</resources>
