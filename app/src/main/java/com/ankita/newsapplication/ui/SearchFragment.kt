@@ -58,30 +58,19 @@ class SearchFragment : Fragment() {
         viewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
             when(response){
                 is Resource.Success -> {
-                    hideProgressBar()
                     response.data?.let { newsResponse ->
                         newsAdapters.differ.submitList(newsResponse.articles)
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
                     response.message?.let { message ->
                         Log.e(TAG, "An error occured: $message")
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar()
                 }
             }
         })
-    }
-
-    private fun hideProgressBar(){
-        binding.paginationProgressBar.visibility = View.INVISIBLE
-    }
-
-    private fun showProgressBar(){
-        binding.paginationProgressBar.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView(){

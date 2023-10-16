@@ -12,11 +12,7 @@
         tools:layout="@layout/fragment_current_news" >
         <action
             android:id="@+id/action_currentNewsFragment_to_webFragment"
-            app:destination="@id/webFragment"
-            app:enterAnim="@animator/slide_in_left"
-            app:exitAnim="@animator/slide_out_left"
-            app:popEnterAnim="@animator/slide_in_right"
-            app:popExitAnim="@animator/slide_out_right" />
+            app:destination="@id/webFragment"/>
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"

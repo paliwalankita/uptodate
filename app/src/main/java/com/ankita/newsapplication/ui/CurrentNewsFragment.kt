@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ankita.newsapplication.R
 import com.ankita.newsapplication.adapters.NewsAdapters
 import com.ankita.newsapplication.databinding.FragmentCurrentNewsBinding
 import com.ankita.newsapplication.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 
 class CurrentNewsFragment : Fragment() {
     lateinit var binding: FragmentCurrentNewsBinding
@@ -37,30 +41,21 @@ class CurrentNewsFragment : Fragment() {
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when(response){
                 is Resource.Success -> {
-                    hideProgressBar()
                     response.data?.let { newsResponse ->
                         newsAdapters.differ.submitList(newsResponse.articles)
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
                     response.message?.let { message ->
                         Log.e(TAG, "An error occured: $message")
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar()
                 }
             }
         })
-    }
 
-    private fun hideProgressBar(){
-        binding.paginationProgressBar.visibility = View.INVISIBLE
-    }
-
-    private fun showProgressBar(){
-        binding.paginationProgressBar.visibility = View.VISIBLE
+        refreshNews()
     }
 
     override fun onCreateView(
@@ -77,6 +72,14 @@ class CurrentNewsFragment : Fragment() {
         binding.rvCurrentNews.apply {
             adapter = newsAdapters
             layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun refreshNews() {
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getBreakingNews("in")
+            Toast.makeText(activity, "Updated", Toast.LENGTH_SHORT).show()
+            binding.refreshLayout.isRefreshing = false
         }
     }
 }

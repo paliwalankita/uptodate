@@ -29,7 +29,7 @@ class NewsAdapters : RecyclerView.Adapter<NewsAdapters.NewsViewHolder>() {
 
     val differ = AsyncListDiffer(this, differCallBack)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsAdapters.NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
             NewsListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -39,18 +39,17 @@ class NewsAdapters : RecyclerView.Adapter<NewsAdapters.NewsViewHolder>() {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = differ.currentList[position]
-        holder.binding.apply {
-            Glide.with(ivArticleImage.context).load(article.urlToImage).into(ivArticleImage)
-            tvSource.text = article.source.name
-            tvTitle.text = article.title
-            tvDescription.text = article.description
-            tvPublishedAt.text = article.publishedAt
-        }
+        holder.binding?.apply {
+            article?.let{
+                Glide.with(ivNewsImage.context).load(it.urlToImage).into(ivNewsImage)
+                tvNewsSource.text = it.source?.name
+                tvNewsTitle.text = it.title
+                tvNewsDate.text = it.publishedAt
 
-        holder.binding.root.apply {
-            setOnItemClickListener {
-                onItemClickListener?.let {
-                    it(article)
+                root?.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(article)
+                    }
                 }
             }
         }
@@ -65,6 +64,4 @@ class NewsAdapters : RecyclerView.Adapter<NewsAdapters.NewsViewHolder>() {
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-
 }

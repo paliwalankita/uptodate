@@ -3,6 +3,7 @@ package com.ankita.newsapplication.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ankita.newsapplication.database.data.Article
 import com.ankita.newsapplication.database.data.NewsResponse
 import com.ankita.newsapplication.repositoty.NewsRepository
 import com.ankita.newsapplication.utils.Resource
@@ -48,6 +49,16 @@ class NewsViewModel(val repository : NewsRepository): ViewModel() {
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        repository.upsert(article)
+    }
+
+    fun getSavedNews() = repository.getSavedArticles()
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        repository.deleteArticle(article)
     }
 
 }
