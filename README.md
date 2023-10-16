@@ -20,8 +20,5 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 ![](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
 ## App Screenshots
-![image](../../AppData/Local/Temp/Screenshot_20231016-173024_UPTODATE.jpg)
-![image](../../AppData/Local/Temp/Screenshot_20231016-163002_UPTODATE.jpg)
-![image](../../AppData/Local/Temp/Screenshot_20231016-163010_UPTODATE.jpg)
-![image](../../AppData/Local/Temp/Screenshot_20231016-163024_UPTODATE.jpg)
-![image](../../AppData/Local/Temp/Screenshot_20231016-163051_UPTODATE.jpg)
+
+
