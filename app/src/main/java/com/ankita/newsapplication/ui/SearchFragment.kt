@@ -1,12 +1,15 @@
 package com.ankita.newsapplication.ui
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +20,9 @@ import com.ankita.newsapplication.utils.Constants.Companion.SEARCH_NEWS_TIME_DEL
 import com.ankita.newsapplication.utils.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 
 class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
@@ -46,7 +49,6 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-
         newsAdapters.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
@@ -88,5 +90,17 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return binding.root
+        hideKeyboard()
     }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+
+
 }

@@ -1,11 +1,13 @@
 package com.ankita.newsapplication.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ankita.newsapplication.R
 import com.ankita.newsapplication.databinding.FragmentWebBinding
@@ -16,6 +18,10 @@ class WebFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
     val args: WebFragmentArgs by navArgs()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //(activity as MainActivity).binding.bottomNavigation.visibility = View.GONE
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

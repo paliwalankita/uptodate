@@ -2,6 +2,7 @@ package com.ankita.newsapplication.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -26,13 +27,35 @@ class MainActivity : AppCompatActivity() {
         val viewmodelFactory = NewsViewmodelFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewmodelFactory).get(NewsViewModel::class.java)
 
+        setupNav()
+    }
+
+    private fun setupNav() {
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
 
         binding.bottomNavigation.setupWithNavController(navController)
 
-        //setupActionBarWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.currentNewsFragment -> showBottomNav()
+                R.id.savedNewsFragment -> showBottomNav()
+                R.id.searchFragment -> showBottomNav()
+                else -> hideBottomNav()
+            }
+        }
+    }
+
+    private fun showBottomNav() {
+        binding.bottomNavigation.visibility = View.VISIBLE
+
+    }
+
+    private fun hideBottomNav() {
+        binding.bottomNavigation.visibility = View.GONE
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

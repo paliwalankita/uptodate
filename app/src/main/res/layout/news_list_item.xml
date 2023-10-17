@@ -35,10 +35,10 @@
                 android:id="@+id/tvNewsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/g_bold"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:text="TITLE" />
 
             <LinearLayout
@@ -52,7 +52,6 @@
                     android:id="@+id/tvNewsSource"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/g_light"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     tools:text="Source" />
@@ -61,7 +60,6 @@
                     android:id="@+id/tvNewsDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/g_light"
                     android:gravity="end"
                     android:textColor="@color/white"
                     android:textSize="15sp"
